@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>청정제주 감귤 농장</title>
+
+    <style>
+        /* * 이 곳은 홈페이지의 디자인을 담당하는 CSS 코드입니다. 
+         * 색상이나 글자 크기 등을 바꾸고 싶으시면 여기를 수정하시면 됩니다.
+         * 잘 모르시겠다면 그대로 두셔도 멋진 디자인이 유지됩니다.
+        */
+
+        /* 전체 폰트 및 기본 스타일 설정 */
+        :root {
+            --primary-color: #F28C28; /* 주황색 (감귤색) */
+            --secondary-color: #4CAF50; /* 초록색 (나뭇잎색) */
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --white-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* 페이지 전체를 감싸는 컨테이너 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 헤더 (맨 위 농장 이름과 메뉴) */
+        header {
+            background: var(--white-color);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 2em;
+        }
+
+        /* 내비게이션 메뉴 */
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* 메인 섹션 스타일 */
+        main {
+            padding: 40px 0;
+            background-color: var(--bg-color);
+        }
+
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid #eee;
+            opacity: 0; /* 스크롤 애니메이션을 위해 기본 숨김 */
+            transform: translateY(30px); /* 스크롤 애니메이션을 위해 살짝 아래로 */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+        
+        /* 환영 메시지 섹션 */
+        .hero {
+            background-image: url('https://source.unsplash.com/random/1600x900/?tangerine,farm');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            margin: 0;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+            margin-top: 10px;
+        }
+        
+        /* 주요 서비스 (카드 형태) */
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: center;
+            width: 30%;
+            min-width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: #e67e22;
+        }
+        
+        /* 농장 소개 섹션 */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .about-text {
+            flex: 1;
+        }
+        .about-image {
+            flex: 1;
+        }
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* 푸터 (맨 아래 정보) */
+        footer {
+            background-color: #333;
+            color: var(--white-color);
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        /* 모바일 화면 대응 */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.5em; }
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.2em; }
+            h2 { font-size: 2em; }
+            
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card {
+                width: 90%;
+            }
+            .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🍊 제주 OO 감귤 농장</h1>
+        <nav>
+            <a href="#about">농장 소개</a>
+            <a href="#services">핵심 서비스</a>
+            <a href="#contact">오시는 길</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <h1>제주 바람과 햇살이 키운 명품 감귤</h1>
+            <p>자연의 정성을 그대로 담아 보내드립니다.</p>
+        </section>
+
+        <div class="container">
+            <section id="about" class="fade-in">
+                <h2>저희 농장을 소개합니다</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>안녕하세요! 저희는 제주도 서귀포의 청정 자연 속에서 3대째 감귤 농사를 짓고 있는 OO 농장입니다.</p>
+                        <p>화학 비료 대신 직접 만든 천연 퇴비를 사용하고, 제초제 없이 자연과 함께 공생하는 방식으로 가장 건강하고 맛있는 감귤을 키우고 있습니다. 저희 가족이 먹는다는 마음으로 한 알 한 알 정성껏 키운 감귤을 여러분의 식탁까지 안전하게 전해드리겠습니다.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://source.unsplash.com/random/800x600/?jeju,farm" alt="아름다운 제주 감귤 농장 풍경">
+                    </div>
+                </div>
+            </section>
+
+            <section id="services" class="fade-in">
+                <h2>체험부터 구매까지 한번에</h2>
+                <div class="features">
+                    
+                    <div class="card">
+                        <img src="https://source.unsplash.com/random/800x600/?tangerine,picking" alt="감귤 따기 체험">
+                        <div class="card-content">
+                            <h3>감귤 따기 체험</h3>
+                            <p>온 가족이 함께 즐기는 잊지 못할 추억! 직접 딴 신선한 감귤을 마음껏 맛보세요.</p>
+                            
+                            <a href="https://adventurous-sousaphone-99a.notion.site/25f3a28212bf80b5bdeae782ed85d310?source=copy_link" class="btn" target="_blank">체험 안내 및 예약</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://source.unsplash.com/random/800x600/?tangerine,box" alt="온라인 판매">
+                        <div class="card-content">
+                            <h3>온라인 직거래 장터</h3>
+                             <p>오늘 아침 수확한 신선한 감귤을 집에서 편하게 받아보세요. 산지 직송으로 보내드립니다.</p>
+
+                            <a href="#" class="btn">온라인으로 구매하기</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://source.unsplash.com/random/800x600/?tangerine,tree" alt="감귤 생산 과정">
+                        <div class="card-content">
+                            <h3>감귤 생산 과정</h3>
+                             <p>저희 농장의 정성과 노하우가 담긴 친환경 감귤 재배 과정을 투명하게 공개합니다.</p>
+
+                            <a href="#" class="btn">생산 과정 보러가기</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <section id="contact" class="fade-in" style="text-align: center;">
+                <h2>오시는 길</h2>
+                <p>
+                    주소: 제주특별자치도 서귀포시 OOO로 123번길 45<br>
+                    연락처: 010-1234-5678
+                </p>
+                <a href="#" class="btn">
+                    자세한 길 안내 보기
+                </a>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+             <p>농장명: 제주 OO 감귤 농장 | 대표: 김농부</p>
+            <p>사업자등록번호: 123-45-67890 | 통신판매업신고: 제2025-제주-0123호</p>
+            <p>&copy; 2025 제주 OO 감귤 농장. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        /*
+         * 이 곳은 홈페이지의 움직이는 효과를 담당하는 JavaScript 코드입니다.
+         * 그대로 두시면 부드러운 효과들이 잘 작동할 것입니다.
+        */
+        document.addEventListener('DOMContentLoaded', function() {
+            // 메뉴 클릭 시 부드럽게 스크롤하는 기능
+            const navLinks = document.querySelectorAll('nav a');
+            for (const link of navLinks) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70, // 헤더 높이만큼 빼주기
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+
+            // 스크롤할 때 섹션이 서서히 나타나는 기능
+            const sections = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 }); // 섹션이 10% 보였을 때 효과 실행
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
